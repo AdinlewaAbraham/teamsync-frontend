@@ -1,6 +1,5 @@
 "use client";
 import { useGlobalContext } from "@/context/GeneralContext";
-import fetchProject from "@/helpers/project/fetchProject";
 import { useRouter } from "next/navigation";
 import React, { ReactNode, useEffect, useState } from "react";
 import { FaChartLine, FaRegCalendar, FaRegListAlt } from "react-icons/fa";

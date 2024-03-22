@@ -9,13 +9,13 @@ import Section from "@/interfaces/section";
 import { useGlobalContext } from "@/context/GeneralContext";
 import RenderStatus, { RenderPriority } from "../ConditionalRender";
 import { usePopper } from "react-popper";
-import deleteSection from "@/helpers/section/deleteSection";
 import findMinFreeRowNumber from "@/utilis/findMinFreeRowNumber";
 import BoardTaskCard from "./BoardTaskCard";
 import socket from "@/config/WebSocketManager";
 import Task from "@/interfaces/task";
 import EditableTextComponent from "@/components/others/EditableTextComponent";
 import { fetchAndHelpRedirect } from "@/helpers/redirect";
+import { deleteSection } from "@/services/section";
 
 const BoardCard = ({
   section,
