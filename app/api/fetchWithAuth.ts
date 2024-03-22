@@ -1,3 +1,4 @@
+import { baseURL } from "@/constants/api";
 import getTokenExpiration from "@/utilis/getTokenExpiration";
 import { hasExpired } from "@/utilis/hasExpired";
 import axios from "axios";
@@ -37,7 +38,7 @@ export async function fetchWithAuth(
     let token;
     if (!accessTokenExpirationDate || hasExpired(accessTokenExpirationDate)) {
       console.log("your token has expired nigga");
-      const res = await axios.post(process.env.API_HOST + "/auth/refresh", {
+      const res = await axios.post(baseURL + "/auth/refresh", {
         refreshToken,
       });
       if (res.status === 200) {
@@ -60,7 +61,7 @@ export async function fetchWithAuth(
       ...options.headers,
     };
 
-    const fetchURL = url.startsWith("http") ? url : process.env.API_HOST + url;
+    const fetchURL = url.startsWith("http") ? url : baseURL + url;
     const response = await fetch(fetchURL, {
       ...options,
       headers,

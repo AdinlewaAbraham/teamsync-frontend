@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { fetchWithAuth } from "../fetchWithAuth";
+import { baseURL } from "@/constants/api";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -16,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 export async function PUT(req: NextRequest, res: NextResponse) {
   console.log("postBody");
   try {
-    const url = process.env.API_HOST + "/user/";
+    const url = baseURL + "/user/";
 
     const postBody = await req.json();
     const { data, status } = await fetchWithAuth(url, {

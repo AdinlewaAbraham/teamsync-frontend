@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWithAuth } from "../../fetchWithAuth";
+import { baseURL } from "@/constants/api";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
   try {
-    const url = process.env.API_HOST + "/project/" + params.id;
+    const url = baseURL + "/project/" + params.id;
     const { data, status } = await fetchWithAuth(url, {
       method: "GET",
     });
@@ -23,7 +24,7 @@ export async function PUT(
   console.log(params.id);
   console.log("i have hit this endpoint");
   try {
-    const url = process.env.API_HOST + "/project/" + params.id;
+    const url = baseURL + "/project/" + params.id;
 
     const postBody = await req.json();
     const { data, status } = await fetchWithAuth(url, {

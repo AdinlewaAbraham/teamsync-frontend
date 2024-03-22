@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { fetchWithAuth } from "../fetchWithAuth";
+import { baseURL } from "@/constants/api";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const url = process.env.API_HOST + "/workspace/";
+    const url = baseURL + "/workspace/";
     const postBody = await req.json();
     const { data, status } = await fetchWithAuth(url, {
       method: "POST",

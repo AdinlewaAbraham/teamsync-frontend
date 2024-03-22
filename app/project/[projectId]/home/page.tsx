@@ -73,8 +73,7 @@ const Page = ({ params }: { params: { projectId: string } }) => {
   };
   return (
     <div className="absolute inset-0 flex flex-1 overflow-y-auto [&>div>div>div>h3]:mb-2 [&>div>div>div>h3]:text-[20px] [&>div>div>div>h3]:font-medium ">
-      <div className="flex flex-1">
-        {process.env.API_HOST}
+      <div className="flex flex-1"> 
         <div className="flex max-h-full flex-1 justify-center overflow-y-auto p-10">
           <div className=" flex w-full max-w-3xl flex-col [&>div>h3]:mb-2 [&>div>h3]:text-[20px] [&>div>h3]:font-medium [&>div]:mb-8">
             <div className="w-full">

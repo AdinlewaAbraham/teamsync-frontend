@@ -1,16 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWithAuth } from "../../../fetchWithAuth";
+import { baseURL } from "@/constants/api";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { projectId: string; sectionId: string } }
+  { params }: { params: { projectId: string; sectionId: string } },
 ) {
-  const url =
-    process.env.API_HOST +
-    "/section/" +
-    params.projectId +
-    "/" +
-    params.sectionId;
+  const url = baseURL + "/section/" + params.projectId + "/" + params.sectionId;
   const { data, status } = await fetchWithAuth(url, {
     method: "DELETE",
   });
@@ -20,10 +16,10 @@ export async function DELETE(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { projectId: string; sectionId: string } }
+  { params }: { params: { projectId: string; sectionId: string } },
 ) {
   const postBody = await req.json();
-  const url = process.env.API_HOST + "/section/" + params.sectionId;
+  const url = baseURL + "/section/" + params.sectionId;
   const { data, status } = await fetchWithAuth(url, {
     method: "PUT",
     body: JSON.stringify(postBody),

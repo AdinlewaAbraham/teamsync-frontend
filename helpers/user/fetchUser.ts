@@ -6,8 +6,7 @@ export default async function fetchUser() {
     const response = await fetchAndHelpRedirect("/api/user/", {
       method: "GET",
     });
-    const { data, status, _response } = response;
-    console.log(_response);
+    const { data, status, _response } = response; 
     if (!_response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
