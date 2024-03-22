@@ -13,6 +13,11 @@ import Workspace from "@/interfaces/workspace";
 import Project from "@/interfaces/project";
 import { fetchAndHelpRedirect } from "@/helpers/redirect";
 import LayoutHeaderSideComponent from "@/components/project/LayoutHeaderSideComponent";
+import { useQuery } from "react-query";
+import { getProject } from "@/services/project";
+import ProjectNotAuthorized from "@/components/project/error/ProjectNotAuthorized";
+import ProjectNotFound from "@/components/project/error/ProjectNotFound";
+import ProjectGenericErrorComponent from "@/components/project/error/ProjectGenericErrorComponent";
 
 const Layout = ({
   params,
@@ -30,27 +35,9 @@ const Layout = ({
   } = useGlobalContext();
   const [showNavbar, setShowNavbar] = useState(true);
   const router = useRouter();
-  useEffect(() => {
-    const getProject = async () => {
-      const response = await fetchProject(params.projectId);
-      console.log(response?.status)
-      if (!response) {
-        console.log("something went wrong ");
-        return;
-      }
-      const { data, status } = response;
-      setActiveProject(data);
-      console.log(data, status);
-      if (status === 404 && data.error === "PROJECT_NOT_FOUND") {
-        console.log("redirecting");
-        router.push("/home"); // or push to disired url
-      } else {
-        // router.push("/project/" + params.projectId + "/home");
-      }
-    };
-    getProject();
-  }, [params.projectId]);
+
   useTrackProject(params.projectId, activeProject, setActiveProject);
+
   const navbarBaseUrl = "/project/" + params.projectId + "/";
   const navbarItemsArray = [
     {
@@ -99,6 +86,7 @@ const Layout = ({
       icon: <FiMessageSquare />,
     },
   ];
+
   const hanldeTextSave = async (text: string) => {
     console.log(text);
     if (
@@ -139,6 +127,32 @@ const Layout = ({
       }
     }
   };
+
+  const getProjectFunc = async () => {
+    return await getProject(params.projectId);
+  };
+  const { data, error } = useQuery(
+    ["project", params.projectId],
+    getProjectFunc,
+    {
+      retryDelay: 1000,
+      retryOnMount: false,
+    },
+  );
+
+  if (data) setActiveProject(data);
+
+  if (error) {
+    switch ((error as any)?.response?.status) {
+      case 401:
+        return <ProjectNotAuthorized />;
+      case 404:
+        return <ProjectNotFound />;
+      default:
+        return <ProjectGenericErrorComponent />;
+    }
+  }
+
   return (
     <section className="relative flex flex-1 flex-col overflow-x-hidden">
       <SubLayoutReusableNavbar

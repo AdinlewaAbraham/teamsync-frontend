@@ -5,6 +5,10 @@ import { FcCalendar, FcTemplate, FcTimeline } from "react-icons/fc";
 import TableIcon from "../../../assects/project/table.png";
 import BoardIcon from "../../../assects/project/board.png";
 import Image from "next/image";
+import errorHandlerAxiosInstance from "@/utilis/api/client/ErrorHandlerAxios";
+import { useGlobalContext } from "@/context/GeneralContext";
+import { useRouter } from "next/navigation";
+import { createProject } from "@/services/project";
 
 const CreateprojectFormSidebar = ({
   projectName,
@@ -30,6 +34,27 @@ const CreateprojectFormSidebar = ({
     { type: "calendar", icon: <FcCalendar /> },
     { type: "timeline", icon: <FcTimeline /> },
   ];
+  const { activeWorkspace, user } = useGlobalContext();
+  const router = useRouter();
+  const [isAdding, setIsAdding] = useState(false);
+
+  const addProject = async () => {
+    console.log(projectName, activeWorkspace?._id, user?._id);
+    if (!projectName || !activeWorkspace?._id || !user?._id) return;
+
+    setIsAdding(true);
+
+    const { data, status } = await createProject({
+      projectName,
+      workspaceId: activeWorkspace?._id,
+      creatorId: user?._id,
+    });
+
+    if (status === 200) router.push(`/project/${data._id}/home`);
+
+    setIsAdding(false);
+  };
+
   return (
     <div
       className="[&>div>label]: mx-16 w-[400px] 
@@ -43,6 +68,7 @@ const CreateprojectFormSidebar = ({
         <input
           type="text"
           className="text-input"
+          value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
           autoFocus
         />
@@ -94,11 +120,16 @@ const CreateprojectFormSidebar = ({
       <button
         className={`${
           projectName
-            ? "cursor-pointer bg-accent-primary text-gray-900"
+            ? ` ${
+                isAdding ? "bg-accent-primary/70" : "bg-accent-primary"
+              } text-gray-900`
             : "cursor-default"
-        } button-default mb-2 mt-12 w-full rounded-lg border border-border-default text-muted-dark`}
+        } button-default mb-2 mt-12 w-full rounded-lg border border-border-default`}
+        onClick={addProject}
+        disabled={!projectName}
       >
-        Create project
+        {isAdding && <></>}
+        {isAdding ? "Creating project..." : "Create project"}
       </button>
     </div>
   );

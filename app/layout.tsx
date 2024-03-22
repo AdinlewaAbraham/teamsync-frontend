@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import fetchUser from "@/helpers/user/fetchUser";
 const inter = Inter({ subsets: ["latin"] });
 import { useRouter } from "next/navigation";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -42,21 +43,24 @@ export default function RootLayout({
     };
     handleUser();
   });
- 
+
+  const queryClient = new QueryClient();
   return (
     <html lang="en" className="h-full w-full ">
       <body className={`${inter.className}  flex-1`}>
-        <GeneralContextProvider>
-          {pathname.startsWith("/login") ||
-          pathname.startsWith("/signup") ||
-          pathname.startsWith("/project/new") ||
-          // pathname.startsWith("/home") ||
-          pathname === "/" ? (
-            <>{children}</>
-          ) : (
-            <MainLayout>{children}</MainLayout>
-          )}
-        </GeneralContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <GeneralContextProvider>
+            {pathname.startsWith("/login") ||
+            pathname.startsWith("/signup") ||
+            pathname.startsWith("/project/new") ||
+            // pathname.startsWith("/home") ||
+            pathname === "/" ? (
+              <>{children}</>
+            ) : (
+              <MainLayout>{children}</MainLayout>
+            )}
+          </GeneralContextProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

@@ -20,7 +20,7 @@ const Page: React.FC = () => {
     getUser();
   }, []);
   useEffect(() => {
-    if (user) {
+    if (user?.activeWorkspaceId) {
       router.push("/workspace/" + user?.activeWorkspaceId + "/home");
     }
   }, [user]);
