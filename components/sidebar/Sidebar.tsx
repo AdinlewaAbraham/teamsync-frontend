@@ -137,6 +137,8 @@ const Sidebar = () => {
   useEffect(() => {
     const getWorkspace = async () => {
       if (!user?.activeWorkspaceId) return;
+      console.log(user)
+      console.log(user.activeWorkspaceId)
       const updatedWorkspace = await fetchWorkspace(user.activeWorkspaceId);
       setActiveWorkspace(updatedWorkspace);
     };

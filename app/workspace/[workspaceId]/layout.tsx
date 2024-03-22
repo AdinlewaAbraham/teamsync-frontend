@@ -22,7 +22,9 @@ const Layout = ({
   const router = useRouter();
   useEffect(() => {
     const checkWorkspaceValidity = () => {
-      const arrOfIds = user?.workspaces.map((workspace) => workspace._id);
+      const arrOfIds = user?.workspaces
+        ? user?.workspaces.map((workspace) => workspace._id)
+        : [];
       if (!arrOfIds?.includes(params.workspaceId)) {
         let redirectToWorkspaceHome;
         if (user?.activeWorkspaceId) {
@@ -58,7 +60,9 @@ const Layout = ({
           },
         ]}
         showNavbar={showNavbar}
-        hanldeTextSave={(text)=>{console.log(text)}}
+        hanldeTextSave={(text) => {
+          console.log(text);
+        }}
       />
 
       <button

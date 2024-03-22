@@ -12,8 +12,7 @@ const Page = () => {
     const handleRedirect = async () => {
       if (!user) {
         const userData = await fetchUser();
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData); 
       }
       router.push("/workspace/" + user?.activeWorkspaceId + "/home");
     };

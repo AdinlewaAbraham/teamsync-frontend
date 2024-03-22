@@ -13,19 +13,11 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const userString = localStorage.getItem("user");
-      const user = userString ? JSON.parse(userString) : null;
-      if (user) {
-        setUser(user);
-      } else {
-        const user = await fetchUser();
-        setUser(user);
-        localStorage.setItem("user", JSON.stringify(user));
-      }
+      const user = await fetchUser();
+      setUser(user);
     };
     getUser();
   }, []);
-
 
   return (
     <div className="flex flex-1 flex-col">

@@ -14,14 +14,8 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const userString = localStorage.getItem("user");
-      const user: User | null = userString ? JSON.parse(userString) : null;
-      if (user) {
-        setUser(user);
-      } else {
-        const user = await fetchUser();
-        setUser(user);
-      }
+      const user = await fetchUser();
+      setUser(user);
     };
     getUser();
   }, []);
