@@ -1,4 +1,4 @@
-import { fetchAndHelpRedirect } from "../redirect";
+import { fetchAndHelpRedirect } from "@/helpers/redirect";
 
 export default async function fetchWorkspace(id: string) {
   try {
