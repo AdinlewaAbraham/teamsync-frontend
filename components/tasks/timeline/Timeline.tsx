@@ -1,5 +1,4 @@
 import { useGlobalContext } from "@/context/GeneralContext";
-import fetchProject from "@/helpers/project/fetchProject";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Project from "@/interfaces/project";
 import generateDates from "@/utilis/generateDates";
