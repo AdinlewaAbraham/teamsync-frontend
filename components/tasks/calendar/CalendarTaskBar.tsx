@@ -195,8 +195,7 @@ const CalendarTaskBar: React.FC<Props> = ({
       const response = await fetch("/api/task/" + task._id, {
         method: "PUT",
         body: JSON.stringify(body),
-      });
-      console.log(response.status);
+      }); 
     } catch (error) {
       console.log(error);
     }

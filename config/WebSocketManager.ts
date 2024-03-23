@@ -1,7 +1,8 @@
-import { io, Socket } from 'socket.io-client';
-
-const socket: Socket = io('http://localhost:5001');
+import { browserAccessibleBaseURL } from "@/constants/api";
+import { io, Socket } from "socket.io-client";
+ 
+const socket: Socket = io(`${browserAccessibleBaseURL}`);
 
 socket.connect();
 
-export default socket
+export default socket;

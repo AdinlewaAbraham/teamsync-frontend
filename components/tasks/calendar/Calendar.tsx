@@ -126,8 +126,7 @@ const Calendar: React.FC<Props> = ({ paramsProjectId, project }) => {
   ) => {
     const monthElementToScrollTo = document.getElementById(
       "1" + _currentMonth + _currentYear,
-    );
-    console.log("1" + _currentMonth + _currentYear);
+    ); 
     if (!monthElementToScrollTo) {
       if (isAdding) {
         addNextMonth();

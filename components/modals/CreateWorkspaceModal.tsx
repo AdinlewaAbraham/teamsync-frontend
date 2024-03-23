@@ -42,8 +42,7 @@ const CreateWorkspaceModal = () => {
         activeWorkspaceId: user?.activeWorkspaceId || "",
       };
       setUser(updatedUser);
-
-      console.log(user);
+ 
 
     } catch (error) {
       console.error(error);

@@ -140,8 +140,7 @@ const CalendarBox: React.FC<Props> = ({
     if (
       clickTarget.closest(".taskBar") ||
       clickTarget.closest(".taskBarInput")
-    ) {
-      console.log("you just clicked on taskbar");
+    ) { 
     } else {
       setTaskWithDateRange([
         ...taskWithDateRange,
@@ -158,17 +157,14 @@ const CalendarBox: React.FC<Props> = ({
   const allowDrop = (e: DragEvent) => {
     if (e) e.preventDefault();
     // stuff that hanldes effects hover drop effect in calendaBox like adding _blank to component
-    console.log("i should be calculating and sorting and appending stuff");
   };
 
   const drop = (e: DragEvent) => {
     e.preventDefault();
     console.log(e.target);
     if (e.dataTransfer) {
-      const data = e.dataTransfer.getData("text/plain");
-      console.log(data);
-    }
-    console.log("i tried to drop");
+      const data = e.dataTransfer.getData("text/plain"); 
+    } 
   };
 
   const dragLeave = () => {
@@ -191,8 +187,7 @@ const CalendarBox: React.FC<Props> = ({
       : !showWeekend
         ? (rowWidth - hideWeekendDayWidth * 2) / (days.length - 2)
         : rowWidth / 7;
-
-  console.log("i rendered");
+ 
 
   const calendarBoxAdditionalClasses = [
     calendarBoxDate.getDate() === 1 &&
